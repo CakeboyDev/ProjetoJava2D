@@ -1,71 +1,84 @@
 package habilidades;
+
 import principais.MeuPainel;
 
 public class Pulo {
 
-	public static boolean subir=true, pular=true;
-	public static boolean pulo=false;
-	public static int cris=MeuPainel.yis+2;
+	public static boolean subir = true, pular = true;
+	public static boolean pulo = false;
+	public static double cris = MeuPainel.xis + 0.6;
+	public static double dris = MeuPainel.xis + 1;
+	public static int maxalt=0,midalt=0,minalt=0;
+
 	public static void pulo() {
 
-		if (MeuPainel.p1.jogy2>=220) {	
-		if (!MeuPainel.tec.direitinha && !MeuPainel.tec.esquerdinha) {
-			if (subir && MeuPainel.p1.jogy2 > 250) {
-				MeuPainel.p1.jogy2 -= 15;
+		if (MeuPainel.p1.jogy2 >= maxalt) {
+			if (!MeuPainel.tec.direitinha && !MeuPainel.tec.esquerdinha) {
+				maxalt=34*MeuPainel.telalt;
+				midalt=38*MeuPainel.telalt;
+				minalt=42*MeuPainel.telalt;
+				System.out.println(maxalt);
+				if (subir && MeuPainel.p1.jogy2 > maxalt) {
+					MeuPainel.p1.jogy2 -= 4*MeuPainel.telalt;
+				}
+				if (subir && MeuPainel.p1.jogy2 > midalt) {
+					MeuPainel.p1.jogy2 -= 5*MeuPainel.telalt;
+				}
+				if (subir && MeuPainel.p1.jogy2 > minalt) {
+					MeuPainel.p1.jogy2 -= 6*MeuPainel.telalt;
+				}
 			}
-			if (subir && MeuPainel.p1.jogy2 > 280) {
-				MeuPainel.p1.jogy2 -= 17;
+			if (MeuPainel.tec.direitinha && !MeuPainel.tec.esquerdinha) {
+				maxalt=50*MeuPainel.telalt;
+				MeuPainel.p1.jogx2 += 6*MeuPainel.telarg;
+				if (MeuPainel.chao) {
+					MeuPainel.p1.jogx2 -= 6*MeuPainel.telarg;
+				}
+				if (subir && MeuPainel.p1.jogy2 > maxalt) {
+					MeuPainel.p1.jogy2 -= 4*MeuPainel.telalt;;
+				}
+				if (subir && MeuPainel.p1.jogy2 > 387) {
+					MeuPainel.p1.jogy2 -= 5*MeuPainel.telalt;
+				}
+				if (subir && MeuPainel.p1.jogy2 > 421) {
+					MeuPainel.p1.jogy2 -= 6*MeuPainel.telalt;
+				}
 			}
-			if (subir && MeuPainel.p1.jogy2 > 300) {
-				MeuPainel.p1.jogy2 -= 20;
+			if (MeuPainel.tec.esquerdinha && !MeuPainel.tec.direitinha) {
+				maxalt=50*MeuPainel.telalt;
+				MeuPainel.p1.jogx2 -= 6*MeuPainel.telarg;
+				if (MeuPainel.chao) {
+					MeuPainel.p1.jogx2 += 6*MeuPainel.telarg;
+
+				}
+				if (subir && MeuPainel.p1.jogy2 > maxalt) {
+					MeuPainel.p1.jogy2 -= 4*MeuPainel.telalt;
+				}
+				if (subir && MeuPainel.p1.jogy2 > 387) {
+					MeuPainel.p1.jogy2 -= 5*MeuPainel.telalt;
+				}
+				if (subir && MeuPainel.p1.jogy2 > 421) {
+					MeuPainel.p1.jogy2 -= 6*MeuPainel.telalt;
+				}
 			}
-		}
-		if (MeuPainel.tec.direitinha && !MeuPainel.tec.esquerdinha) {
-			MeuPainel.p1.jogx2 += 40;
-			if (MeuPainel.chao) {
-				MeuPainel.p1.jogx2 -= 40;
-				MeuPainel.tec.direitinha = false;
-			}
-			if (subir && MeuPainel.p1.jogy2 > 250) {
-				MeuPainel.p1.jogy2 -= 15;
-			}
-			if (subir && MeuPainel.p1.jogy2 > 280) {
-				MeuPainel.p1.jogy2 += 17;
-			}
-			if (subir && MeuPainel.p1.jogy2 > 300) {
-				MeuPainel.p1.jogy2 += 20;
-			}
-		}
-		if (MeuPainel.tec.esquerdinha && !MeuPainel.tec.direitinha) {
-			MeuPainel.p1.jogx2 -= 40;
-			if (MeuPainel.chao) {
-				MeuPainel.p1.jogx2 += 40;
-				MeuPainel.tec.esquerdinha = false;
-			}
-			if (subir && MeuPainel.p1.jogy2 > 250) {
-				MeuPainel.p1.jogy2 -= 15;
-			}
-			if (subir && MeuPainel.p1.jogy2 > 280) {
-				MeuPainel.p1.jogy2 += 17;
-			}
-			if (subir && MeuPainel.p1.jogy2 > 300) {
-				MeuPainel.p1.jogy2 += 20;
-			}
-		}
-		}else {
-			subir=false;
+		} else {
+			subir = false;
 
 		}
+
 		puloCD();
 	}
-	
+
 	public static void puloCD() {
 
-		if(MeuPainel.yis>=cris){
-			cris+=2;
-			MeuPainel.tec.dima=false;
-			Pulo.subir=true;
+		if (MeuPainel.xis >= cris) {
+			cris += 0.6;
+			Pulo.subir = true;
+			MeuPainel.tec.dima = false;
+			MeuPainel.tec.direitinha=false;
+			MeuPainel.tec.esquerdinha=false;
 			System.out.println("a");
+
 		}
 	}
 }

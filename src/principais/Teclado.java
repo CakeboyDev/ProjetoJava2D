@@ -66,16 +66,15 @@ public class Teclado implements KeyListener{
 	}
 	
 	public void Aperta() {
-		if(direita) {
+		if(direita&&MeuPainel.chao) {
 			direitinha=true;
 			esquerdinha=false;
 			MeuPainel.p1.jogx2+=MeuPainel.p1.vel;
-		}else if(esquerda) {
+		}else if(esquerda&&MeuPainel.chao) {
 			esquerdinha=true;
 			direitinha=false;
 			MeuPainel.p1.jogx2-=MeuPainel.p1.vel;
 		}
-
 		if(cima&&MeuPainel.chao) {
 			dima=true;
 		}

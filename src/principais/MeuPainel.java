@@ -28,23 +28,13 @@ public class MeuPainel extends JPanel implements Runnable{
 	public static Jogador p1=new Jogador();
 	public static int canvay;
 	public static Color corzinha;
-
-
-
-
-
 	public static int p;
-
-
 	public static int p2;
-
-
 	public static int pi2;
-
-
 	public static int pi;
 	Thread tred;
 	Background bg= new Background();
+	Som som = new Som();
 	public static Teclado tec = new Teclado();
 	public static double xis=0;
 	public static int yis=0;
@@ -55,6 +45,14 @@ public class MeuPainel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		tred=new Thread(this);
 		tred.start();
+		somToca(0);
+
+	}
+	private void somToca(int i) {
+		// TODO Auto-generated method stub
+		som.setFile(i);
+		som.playbg();
+		som.loop();
 	}
 	@Override
 	public void run() {
@@ -81,7 +79,6 @@ public class MeuPainel extends JPanel implements Runnable{
 				timer=0;
 				timers=0;
 				yis+=1;
-				
 			}
 			if(timer2>=100000000) { 
 				timer2=0;
@@ -90,7 +87,6 @@ public class MeuPainel extends JPanel implements Runnable{
 			}
 		}
 	}
-
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d=(Graphics2D) g;
@@ -104,8 +100,8 @@ public class MeuPainel extends JPanel implements Runnable{
 			gameStart=true;
 		}
 		if(gameStart) {
-			p1.jogy2+=10;
-			
+			p1.jogy2+=2*telalt;
+
 			tec.Aperta();
 			checaColisao();
 		}

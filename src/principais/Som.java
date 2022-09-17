@@ -22,7 +22,7 @@ public class Som {
 		somURL[2]= getClass().getClassLoader().getResource("vrum.wav");
 	}
 	
-	public static void setFile(int i) {
+	public void setFile(int i) {
 		
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(somURL[i]);
@@ -40,7 +40,7 @@ public class Som {
 		}
 		
 	}
-	public static void playbg() {
+	public void playbg() {
 		FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		volume.setValue(-25);
 		clip.start();
@@ -50,7 +50,7 @@ public class Som {
 		volume.setValue(-15);
 		clip.start();
 	}
-	public static void loop() {
+	public void loop() {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 	public void stop() {
