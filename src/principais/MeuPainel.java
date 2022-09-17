@@ -24,7 +24,7 @@ public class MeuPainel extends JPanel implements Runnable{
 	public static int canvalt=(int) canvad.getHeight();
 	public static int telarg=canvalarg/100;
 	public static int telalt=canvalt/100;
-	public static int chaoY=90*telalt;
+	public static int chaoY=88*telalt;
 	public static Jogador p1=new Jogador();
 	public static int canvay;
 	public static Color corzinha;
@@ -101,7 +101,6 @@ public class MeuPainel extends JPanel implements Runnable{
 		}
 		if(gameStart) {
 			p1.jogy2+=2*telalt;
-
 			tec.Aperta();
 			checaColisao();
 		}

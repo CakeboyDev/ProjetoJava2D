@@ -10,9 +10,10 @@ public class Teclado implements KeyListener{
 	public boolean direitinha;
 	public boolean esquerdinha;
 	public boolean dima;
+	double dis=MeuPainel.xis+0.1;
 	long tpp = System.nanoTime();
 	long tpa;
-	int dlt=0;
+	int dlt=2;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -69,11 +70,24 @@ public class Teclado implements KeyListener{
 		if(direita&&MeuPainel.chao) {
 			direitinha=true;
 			esquerdinha=false;
+			MeuPainel.p1.vel=10;
 			MeuPainel.p1.jogx2+=MeuPainel.p1.vel;
 		}else if(esquerda&&MeuPainel.chao) {
 			esquerdinha=true;
 			direitinha=false;
-			MeuPainel.p1.jogx2-=MeuPainel.p1.vel;
+			MeuPainel.p1.vel=-10;
+			MeuPainel.p1.jogx2+=MeuPainel.p1.vel;
+		}else if(!esquerda&&!direita&&MeuPainel.chao) {
+			if(MeuPainel.xis>=dis) {
+				if(MeuPainel.p1.vel>0) {
+				MeuPainel.p1.vel-=1;
+				}
+				if(MeuPainel.p1.vel<0) {
+				MeuPainel.p1.vel+=1;
+				}
+				System.out.println(MeuPainel.p1.vel);
+				dis+=0.1;	
+			}
 		}
 		if(cima&&MeuPainel.chao) {
 			dima=true;
@@ -83,4 +97,5 @@ public class Teclado implements KeyListener{
 		}
 
 	}
+
 }

@@ -13,11 +13,10 @@ public class Pulo {
 	public static void pulo() {
 
 		if (MeuPainel.p1.jogy2 >= maxalt) {
-			if (!MeuPainel.tec.direitinha && !MeuPainel.tec.esquerdinha) {
+			if (MeuPainel.p1.vel==0) {
 				maxalt=34*MeuPainel.telalt;
 				midalt=38*MeuPainel.telalt;
 				minalt=42*MeuPainel.telalt;
-				System.out.println(maxalt);
 				if (subir && MeuPainel.p1.jogy2 > maxalt) {
 					MeuPainel.p1.jogy2 -= 4*MeuPainel.telalt;
 				}
@@ -27,8 +26,7 @@ public class Pulo {
 				if (subir && MeuPainel.p1.jogy2 > minalt) {
 					MeuPainel.p1.jogy2 -= 6*MeuPainel.telalt;
 				}
-			}
-			if (MeuPainel.tec.direitinha && !MeuPainel.tec.esquerdinha) {
+			}else if (MeuPainel.p1.vel>0) {
 				maxalt=50*MeuPainel.telalt;
 				MeuPainel.p1.jogx2 += 6*MeuPainel.telarg;
 				if (MeuPainel.chao) {
@@ -43,8 +41,7 @@ public class Pulo {
 				if (subir && MeuPainel.p1.jogy2 > 421) {
 					MeuPainel.p1.jogy2 -= 6*MeuPainel.telalt;
 				}
-			}
-			if (MeuPainel.tec.esquerdinha && !MeuPainel.tec.direitinha) {
+			}else if (MeuPainel.p1.vel<0) {
 				maxalt=50*MeuPainel.telalt;
 				MeuPainel.p1.jogx2 -= 6*MeuPainel.telarg;
 				if (MeuPainel.chao) {
@@ -63,9 +60,7 @@ public class Pulo {
 			}
 		} else {
 			subir = false;
-
 		}
-
 		puloCD();
 	}
 
@@ -75,10 +70,6 @@ public class Pulo {
 			cris += 0.6;
 			Pulo.subir = true;
 			MeuPainel.tec.dima = false;
-			MeuPainel.tec.direitinha=false;
-			MeuPainel.tec.esquerdinha=false;
-			System.out.println("a");
-
 		}
 	}
 }
