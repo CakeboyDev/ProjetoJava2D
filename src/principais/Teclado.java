@@ -3,8 +3,13 @@ package principais;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import habilidades.Pulo;
+
 public class Teclado implements KeyListener{
-	public static boolean baixo, cima, direita, esquerda, dash, load;
+	public boolean baixo, cima, direita, esquerda, dash, load;
+	public boolean direitinha;
+	public boolean esquerdinha;
+	public boolean dima;
 	long tpp = System.nanoTime();
 	long tpa;
 	int dlt=0;
@@ -58,5 +63,25 @@ public class Teclado implements KeyListener{
 		if(key==32) {
 			load=false;
 		}
+	}
+	
+	public void Aperta() {
+		if(direita) {
+			direitinha=true;
+			esquerdinha=false;
+			MeuPainel.p1.jogx2+=MeuPainel.p1.vel;
+		}else if(esquerda) {
+			esquerdinha=true;
+			direitinha=false;
+			MeuPainel.p1.jogx2-=MeuPainel.p1.vel;
+		}
+
+		if(cima&&MeuPainel.chao) {
+			dima=true;
+		}
+		if(dima) {
+			Pulo.pulo();
+		}
+
 	}
 }
