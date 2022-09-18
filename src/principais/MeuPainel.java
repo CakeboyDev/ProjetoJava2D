@@ -5,10 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.sql.Time;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
-
-import habilidades.Pulo;
 
 public class MeuPainel extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -32,6 +33,7 @@ public class MeuPainel extends JPanel implements Runnable{
 	public static int p2;
 	public static int pi2;
 	public static int pi;
+	public boolean tocara;
 	Thread tred;
 	Background bg= new Background();
 	Som som = new Som();
@@ -45,15 +47,10 @@ public class MeuPainel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		tred=new Thread(this);
 		tred.start();
-		somToca(0);
+		tocaBG(0);
 
 	}
-	private void somToca(int i) {
-		// TODO Auto-generated method stub
-		som.setFile(i);
-		som.playbg();
-		som.loop();
-	}
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -87,6 +84,23 @@ public class MeuPainel extends JPanel implements Runnable{
 			}
 		}
 	}
+	TimerTask tt;
+	public void tocarplis() {
+	tt = new TimerTask() {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("A");
+			tocaSE(1);
+			tt.cancel();
+			tt=null;
+		}
+	};
+	Timer t = new Timer();
+	t.schedule(tt, 10);
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d=(Graphics2D) g;
@@ -94,15 +108,18 @@ public class MeuPainel extends JPanel implements Runnable{
 		bg.Desenha(g2d);
 		p1.Desenha(g2d);
 	}
-	
 	public void update() {
-		if(xis>=0.5) {
+		tocara = tec.tocarmus;
+		p1.jogy2+=2*telalt;
+		if(xis>=1) {
 			gameStart=true;
 		}
 		if(gameStart) {
-			p1.jogy2+=2*telalt;
 			tec.Aperta();
 			checaColisao();
+			if(tocara&&tt==null) {
+				tocarplis();
+			}
 		}
 	}	
 	public void checaColisao() {
@@ -117,9 +134,15 @@ public class MeuPainel extends JPanel implements Runnable{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
-	
-	
+	public void tocaBG(int i) {
+		// TODO Auto-generated method stub
+		som.setFile(i);
+		som.playbg();
+		som.loop();
+	}
+	public void tocaSE(int i) {
+		// TODO Auto-generated method stub
+		som.setFile(i);
+		som.playbg();
+	}
 }

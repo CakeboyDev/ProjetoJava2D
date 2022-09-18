@@ -14,7 +14,6 @@ public class Teclado implements KeyListener{
 	long tpp = System.nanoTime();
 	long tpa;
 	int dlt=2;
-	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -65,8 +64,14 @@ public class Teclado implements KeyListener{
 			load=false;
 		}
 	}
+	public boolean tocarmus=false;
 	
 	public void Aperta() {
+		if(MeuPainel.p1.jogy2+MeuPainel.p1.alt<MeuPainel.chaoY) {
+
+			tocarCD();
+		}
+
 		if(direita&&MeuPainel.chao) {
 			direitinha=true;
 			esquerdinha=false;
@@ -85,7 +90,6 @@ public class Teclado implements KeyListener{
 				if(MeuPainel.p1.vel<0) {
 				MeuPainel.p1.vel+=1;
 				}
-				System.out.println(MeuPainel.p1.vel);
 				dis+=0.1;	
 			}
 		}
@@ -97,5 +101,15 @@ public class Teclado implements KeyListener{
 		}
 
 	}
+	int liz=MeuPainel.yis+2;
+	private void tocarCD() {
+		// TODO Auto-generated method stub
+		tocarmus=false;
+		if(MeuPainel.xis>liz) {
+			tocarmus=true;
+			liz+=2;
+		}
+	}
+
 
 }

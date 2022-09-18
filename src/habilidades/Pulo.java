@@ -6,7 +6,7 @@ public class Pulo {
 
 	public static boolean subir = true, pular = true;
 	public static boolean pulo = false;
-	public static double cris = MeuPainel.xis + 0.6;
+	public static double cris = MeuPainel.xis + 2;
 	public static double dris = MeuPainel.xis + 1;
 	public static int maxalt=0,midalt=0,minalt=0;
 
@@ -67,7 +67,7 @@ public class Pulo {
 	public static void puloCD() {
 
 		if (MeuPainel.xis >= cris) {
-			cris += 0.6;
+			cris += 2;
 			Pulo.subir = true;
 			MeuPainel.tec.dima = false;
 		}
