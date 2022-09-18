@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JPanel;
+
+import habilidades.Tiro;
+import inimigos.Inimigo;
 
 public class MeuPainel extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
@@ -35,22 +39,26 @@ public class MeuPainel extends JPanel implements Runnable{
 	public static int pi;
 	public boolean tocara;
 	Thread tred;
+	TimerTask tt=null;
+	public static Mouse mss=new Mouse();
 	Background bg= new Background();
 	Som som = new Som();
 	public static Teclado tec = new Teclado();
 	public static double xis=0;
 	public static int yis=0;
+	public static Tiro[] tiros=new Tiro[10];
+	public static Inimigo[] inimigos=new Inimigo[100];
+	
 	public MeuPainel() {
 		this.setPreferredSize(new Dimension(canvalarg,canvalt));
 		this.setDoubleBuffered(true);
 		this.addKeyListener(tec);
 		this.setFocusable(true);
+		this.addMouseListener(mss);
 		tred=new Thread(this);
 		tred.start();
 		tocaBG(0);
-
 	}
-
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -72,7 +80,6 @@ public class MeuPainel extends JPanel implements Runnable{
 				timers2++;
 			}
 			if(timer>=1000000000) {
-				//System.out.println("FPS: "+timers);
 				timer=0;
 				timers=0;
 				yis+=1;
@@ -84,10 +91,8 @@ public class MeuPainel extends JPanel implements Runnable{
 			}
 		}
 	}
-	TimerTask tt;
 	public void tocarplis() {
 	tt = new TimerTask() {
-
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
@@ -100,28 +105,51 @@ public class MeuPainel extends JPanel implements Runnable{
 	Timer t = new Timer();
 	t.schedule(tt, 10);
 	}
-	
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d=(Graphics2D) g;
 		g2d.translate(-(p1.jogx2-(telarg*50)), 0);
-		bg.Desenha(g2d);
-		p1.Desenha(g2d);
+			bg.Desenha(g2d);
+			p1.Desenha(g2d);
+			for(int i=0;i<inimigos.length;i++) {
+				if(inimigos[i]!=null) {
+					inimigos[i].Desenha(g2d, inimigos[i].x, inimigos[i].y, inimigos[i].larg, inimigos[i].alt);
+				}
+			}
+			for(int i=0;i<tiros.length;i++) {
+				if(tiros[i]!=null) {
+					tiros[i].Desenha(g2d, tiros[i].ju, tiros[i].ju2, tiros[i].larg, tiros[i].alt);
+				}
+			}
+		g2d.translate(p1.jogx2-(telarg*50.5), -telalt);
+			mss.Desenha(g2d);
+			g2d.drawLine(telarg*54, p1.jogy2+telarg*5, p2, pi2);
 	}
 	public void update() {
-		tocara = tec.tocarmus;
 		p1.jogy2+=2*telalt;
 		if(xis>=1) {
 			gameStart=true;
 		}
 		if(gameStart) {
+			Point ms=MouseInfo.getPointerInfo().getLocation();
+			p=ms.x;
+			pi=ms.y;
+			p2=p;
+			pi2=pi;
+			tocara = tec.tocarmus;
 			tec.Aperta();
 			checaColisao();
 			if(tocara&&tt==null) {
 				tocarplis();
 			}
+			for(int i=0;i<tiros.length;i++) {
+				if(tiros[i]!=null) {
+					tiros[i].ju+=tiros[i].velt;
+					tiros[i].ju2+=tiros[i].velt2;
+				}
+			}
 		}
-	}	
+	}
 	public void checaColisao() {
 		if(p1.jogy2+p1.alt>=chaoY) {
 			p1.jogy2=chaoY-p1.alt;
@@ -129,10 +157,6 @@ public class MeuPainel extends JPanel implements Runnable{
 		}else {
 			chao=false;
 		}
-	}
-	public static void Atirar() {
-		// TODO Auto-generated method stub
-		
 	}
 	public void tocaBG(int i) {
 		// TODO Auto-generated method stub

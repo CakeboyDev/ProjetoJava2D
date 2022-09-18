@@ -15,6 +15,7 @@ public class Inimigo {
 	static ImageIcon p1img22;
 	public Image imgg;
 	public Image imgg3;
+	public int alt=100;
 	
 	public void Desenha(Graphics g2d, int x, int y, int larg, int alt) {
 		p1img22=new ImageIcon(getClass().getClassLoader().getResource("chute.png"));
